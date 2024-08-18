@@ -1,55 +1,29 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 
-const WeatherButton = () => {
-  const cityNames = {
-    seoul: {
-      name: "seoul",
-      lat: 37.34,
-      lon: 126.59,
-    },
-    berlin: {
-      name: "berlin",
-      lat: 52.5,
-      lon: 13.4,
-    },
-    doha: {
-      name: "doha",
-      lat: 25.3,
-      lon: 51.5,
-    },
-  };
-
-  const changeCity = (cityName) => {
-    console.log("change city>>>", cityName.name);
-  };
-
+const WeatherButton = ({
+  cities,
+  selectedCity,
+  handleCurrentLocation,
+}) => {
   return (
     <div className="btn-container">
       <Button
-        variant="outline-light"
-        onClick={() => changeCity(cityNames.seoul)}
+        variant={`${selectedCity == null ? "outline-light" : "light"} `}
+        onClick={() => handleCurrentLocation("current")}
       >
         Current Location
       </Button>
-      <Button
-        variant="outline-light"
-        onClick={() => changeCity(cityNames.seoul)}
-      >
-        Seoul
-      </Button>
-      <Button
-        variant="outline-light"
-        onClick={() => changeCity(cityNames.berlin)}
-      >
-        Berlin
-      </Button>
-      <Button
-        variant="outline-light"
-        onClick={() => changeCity(cityNames.doha)}
-      >
-        Doha
-      </Button>
+      {cities.map((item, index) => (
+        <Button
+          variant={`${selectedCity == item ? "outline-light" : "light"} `}
+          key={index}
+          onClick={() => handleCurrentLocation(item)}
+        >
+          {item}
+        </Button>
+      ))}
+      ;
     </div>
   );
 };
